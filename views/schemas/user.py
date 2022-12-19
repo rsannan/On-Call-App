@@ -17,11 +17,11 @@ class ReadUserSchema(Schema):
     phone = fields.Str(dump_only=True)
 
 class UserUpdateSchema(Schema):
-    id = fields.Int(dump_only=True)
-    firstname = fields.Str(dump_only=True)
-    lastname = fields.Str(dump_only=True)
-    email = fields.Str(dump_only=True)
-    phone = fields.Str(dump_only=True)
+    id = fields.Int()
+    firstname = fields.Str()
+    lastname = fields.Str()
+    email = fields.Str()
+    phone = fields.Str()
 
 
 

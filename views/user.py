@@ -1,6 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from views.schemas.user import  CreateUserSchema, ReadUserSchema
+from views.schemas.user import  CreateUserSchema, ReadUserSchema, UserUpdateSchema
 from models.user import UserModel
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from db import db
@@ -41,3 +41,22 @@ class User(MethodView):
     def get(self, user_id):
         user = UserModel.query.get_or_404(user_id)
         return user
+
+
+    @blp.arguments(UserUpdateSchema)
+    @blp.response(201, UserUpdateSchema)
+    def put(self, user_data, user_id):
+        user = UserModel.query.get_or_404(user_id)
+        user.firstname = user_data["firstname"]
+        user.lastname = user_data["lastname"]
+        user.phone = user_data["phone"]
+
+        try:
+            db.session.add(user)
+            db.session.commit()
+        except SQLAlchemyError:
+            abort(500, message="An error occured while updating a user.")
+
+        return user
+
+        
