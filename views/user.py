@@ -1,17 +1,21 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from views.schemas.user import PlainUserSchema
+from views.schemas.user import  CreateUserSchema, ReadUserSchema
 from models.user import UserModel
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from db import db
 
 
-blp = Blueprint("user", __name__, url_prefix="/users", description="Operations on users")
+blp = Blueprint("user", __name__, url_prefix="/api/users", description="Operations on users")
 
 @blp.route("/")
-class User(MethodView):
-    @blp.arguments(PlainUserSchema)
-    @blp.response(201, PlainUserSchema)
+class UserList(MethodView):
+    """
+    Defines a UserList class that deals with
+    payloads which include a list of data
+    """
+    @blp.arguments(CreateUserSchema)
+    @blp.response(201, CreateUserSchema)
     def post(self, user_data):
         user = UserModel(**user_data)
         try:
@@ -25,4 +29,15 @@ class User(MethodView):
         return user
 
     
-    
+    @blp.response(201, ReadUserSchema(many=True))
+    def get(self):
+        users = UserModel.query.all()
+        return users
+        
+
+@blp.route("/<string:user_id>")
+class User(MethodView):
+    @blp.response(200, ReadUserSchema)
+    def get(self, user_id):
+        user = UserModel.query.get_or_404(user_id)
+        return user
