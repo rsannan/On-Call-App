@@ -3,4 +3,5 @@ flask-smorest
 flask-sqlalchemy
 pymysql
 python-dotenv
+requests
 sqlalchemy

@@ -6,7 +6,7 @@ This module contains the code for the checks endpoing.
 from flask_smorest import Blueprint, abort
 from flask.views import MethodView
 from models.check import CheckModel
-from sqlalchemy.exc import SQLAlchemyError, IntegrityError, NoForeignKeysError
+from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from views.schemas.check import CheckCreateSchema, CheckReadSchema, CheckUpdateSchema
 from db import db
 

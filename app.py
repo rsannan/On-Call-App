@@ -10,6 +10,7 @@ from views.http_method import blp as HttpMethodBlueprint
 from views.checks import blp as CheckBlueprint
 import models # This is needed to create tables in the database
 from db import db
+from worker import worker
 
 
 def create_app(db_url=None):
@@ -37,12 +38,16 @@ def create_app(db_url=None):
     api.register_blueprint(HttpMethodBlueprint)
     api.register_blueprint(CheckBlueprint)
 
+    worker.start_periodic_check()
+
     return app
 
 
 if __name__ == "__main__":
     app = create_app();
     app.run()
+
+
 
 
 
