@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask_smorest import Api
 from views.user import blp as UserBlueprint
+from views.http_method import blp as HttpMethodBlueprint
 import models # Needed to create tables in the database
 from db import db
 
@@ -27,5 +28,6 @@ def create_app(db_url=None):
 
     api = Api(app)
     api.register_blueprint(UserBlueprint)
+    api.register_blueprint(HttpMethodBlueprint)
 
     return app
