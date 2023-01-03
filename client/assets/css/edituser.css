@@ -2,6 +2,10 @@ body {
     background: #579BB1;
 }
 
+.header{
+    position: relative;
+}
+
 .form-control:focus {
     box-shadow: none;
     border-color: #BA68C8

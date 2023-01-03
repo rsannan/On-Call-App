@@ -12,6 +12,10 @@ body {
   background: linear-gradient(45deg, #BAD7E9 20%, #2B3467 80%);
 }
 
+.header {
+  position: relative;
+}
+
 input, button {
   border: none;
   outline: none;
