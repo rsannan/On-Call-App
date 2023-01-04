@@ -1,3 +1,5 @@
+wheel
+cryptography
 flask
 flask-smorest
 flask-sqlalchemy
@@ -7,3 +9,4 @@ requests
 sqlalchemy
 flask_jwt_extended
 passlib
+gunicorn
