@@ -8,6 +8,7 @@ from flask.views import MethodView
 from models.check import CheckModel
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from views.schemas.check import CheckCreateSchema, CheckReadSchema, CheckUpdateSchema
+from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
 from db import db
 
 
@@ -22,61 +23,75 @@ class CheckList(MethodView):
     """
     @blp.arguments(CheckCreateSchema)
     @blp.response(200, CheckCreateSchema)
+    @jwt_required()
     def post(self, check_data):
+        user_id = get_jwt_identity();
         check = CheckModel()
         check.title = check_data["title"]
         check.url = check_data["url"]
         check.method_id = check_data["method_id"]
         check.status_code = check_data["status_code"]
-        check.user_id = check_data["user_id"]
+        check.user_id = user_id
 
         try:
             db.session.add(check)
             db.session.commit()
-        except SQLAlchemyError:
+        except SQLAlchemyError as e:
+            print(e)
             abort(500, message="An error occured while creating a check")
 
         return check
 
     @blp.response(200, CheckReadSchema(many=True))
+    @jwt_required()
     def get(self):
-        checks = CheckModel.query.all()
+        checks = CheckModel.query.filter(CheckModel.user_id == get_jwt_identity()).all()
         return checks
 
 
 @blp.route("/<string:check_id>")
 class Check(MethodView):
-    """Defines a check blue print"""
+    """Defines a check blueprint"""
     
     @blp.response(200, CheckReadSchema)
+    @jwt_required()
     def get(self, check_id):
         check  = CheckModel.query.get_or_404(check_id)
+        user_id = get_jwt_identity()
+        if check.user_id != user_id:
+            abort(401, message="Looks like this check belongs to another user.")
         return check
 
     @blp.arguments(CheckUpdateSchema)
     @blp.response(200, CheckUpdateSchema)
+    @jwt_required()
     def put(self, check_data, check_id):
         check = CheckModel.query.get_or_404(check_id)
+        if check.user_id != get_jwt_identity():
+            abort(400, message="Looks like this check belongs to another user.")
+            
         check.title = check_data["title"]
         check.url = check_data["url"]
         check.method_id = check_data["method_id"]
         check.status_code = check_data["status_code"]
-        check.user_id = check_data["user_id"]
 
         try:
             db.session.add(check)
             db.session.commit()
-        except IntegrityError as e:
+        except IntegrityError:
             abort(500, message=("An error occured while updating a check."
                 "The user_id may have no reference to a user"))
-        except SQLAlchemyError: 
+        except SQLAlchemyError:
             abort(500, message="An error occured while updating a check")
 
         return check
 
-        
+    @jwt_required()
     def delete(self, check_id):
         check = CheckModel.query.get_or_404(check_id)
+
+        if check.user_id != get_jwt_identity():
+            abort(401, message="Looks like this check belongs to another user.")
 
         try:
             db.session.delete(check)

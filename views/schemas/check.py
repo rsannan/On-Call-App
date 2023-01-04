@@ -16,7 +16,7 @@ class CheckCreateSchema(Schema):
     status_code = fields.Integer()
     check_count = fields.Int()
     status = fields.Bool(dump_only=True)
-    user_id = fields.Int(required=True)
+    user_id = fields.Int(required=True, dump_only=True)
 
 
 class CheckReadSchema(Schema):
@@ -39,8 +39,8 @@ class CheckUpdateSchema(Schema):
     status_code = fields.Integer()
     check_count = fields.Int()
     status = fields.Bool()
-    user_id = fields.Int(load_only=True)    
-    user = fields.Nested(ReadUserSchema())
+    user_id = fields.Int(dump_only=True)    
+    user = fields.Nested(ReadUserSchema)
 
 
 

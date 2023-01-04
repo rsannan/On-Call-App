@@ -3,7 +3,7 @@
 This is the root module of this application
 """
 import os
-from flask import Flask
+from flask import Flask, jsonify
 from flask_smorest import Api
 from views.user import blp as UserBlueprint
 from views.http_method import blp as HttpMethodBlueprint
@@ -11,6 +11,7 @@ from views.checks import blp as CheckBlueprint
 import models # This is needed to create tables in the database
 from db import db
 from worker import worker
+from flask_jwt_extended import JWTManager
 
 
 def create_app(db_url=None):
@@ -33,12 +34,24 @@ def create_app(db_url=None):
     with app.app_context():
         db.create_all()
 
+
+    app.config["JWT_SECRET_KEY"] = "a very weak private key"
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = False
+    jwt = JWTManager(app)
+
+    @jwt.unauthorized_loader
+    def unauthoized_request(token):
+        return jsonify({"message": "Access denied. No token provided."}), 401
+
+   
+        
+
     api = Api(app)
     api.register_blueprint(UserBlueprint)
     api.register_blueprint(HttpMethodBlueprint)
     api.register_blueprint(CheckBlueprint)
 
-    worker.start_periodic_check()
+    # worker.start_periodic_check()
 
     return app
 
