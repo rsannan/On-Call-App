@@ -1,8 +1,10 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from views.schemas.user import  CreateUserSchema, ReadUserSchema, UserUpdateSchema
+from views.schemas.user import  CreateUserSchema, ReadUserSchema, UserUpdateSchema, UserLoginSchema
 from models.user import UserModel
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from flask_jwt_extended import create_access_token
+from passlib.hash import pbkdf2_sha256
 from db import db
 
 
@@ -10,21 +12,18 @@ blp = Blueprint("user", __name__, url_prefix="/api/users", description="Operatio
 
 @blp.route("/")
 class UserList(MethodView):
-    """
-    Defines a UserList class that deals with
-    payloads which include a list of data
-    """
     @blp.arguments(CreateUserSchema)
     @blp.response(201, CreateUserSchema)
     def post(self, user_data):
         user = UserModel(**user_data)
+        user.password = pbkdf2_sha256.hash(user_data["password"])
         try:
             db.session.add(user)
             db.session.commit()
         except IntegrityError:
-            abort(400, message="User with the given email already exists")
+            abort(400, message="User with the given email already exists.")
         except SQLAlchemyError:
-            abort(400, message="User with the given email already exists")
+            abort(400, message="User with the given email already exists.")
 
         return user
 
@@ -59,8 +58,26 @@ class User(MethodView):
 
         return user
 
-    
     # def delete(self, user_id):
     #     user = UserModel.query.get_or_404(user_id)
         
     #     return {"message": "User deleted", "user_id": user.id}, 200
+
+
+
+@blp.route("/login")
+class UserLogin(MethodView):
+    @blp.arguments(UserLoginSchema)
+    def post(self, user_data):
+        user = UserModel.query.filter(UserModel.email == user_data["email"]).first()
+        
+        if not user:
+            abort(400, message="Invalid email or password.")
+        elif not pbkdf2_sha256.verify(user_data["password"], user.password):
+            abort(400, message="Invalid email or password.")
+
+        token = create_access_token(identity=user.id)
+        
+        return {"access_token": token}
+        
+        

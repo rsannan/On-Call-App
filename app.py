@@ -3,7 +3,7 @@
 This is the root module of this application
 """
 import os
-from flask import Flask
+from flask import Flask, jsonify
 from flask_smorest import Api
 from views.user import blp as UserBlueprint
 from views.http_method import blp as HttpMethodBlueprint
@@ -11,6 +11,7 @@ from views.checks import blp as CheckBlueprint
 import models # This is needed to create tables in the database
 from db import db
 from worker import worker
+from flask_jwt_extended import JWTManager
 
 
 def create_app(db_url=None):
@@ -26,19 +27,34 @@ def create_app(db_url=None):
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
     app.config["SQLALCHEMY_DATABASE_URI"] =\
-        db_url or os.getenv("DATABASE_URL", "mysql+pymysql://root:superdad77@localhost/alx")
+        db_url or os.getenv("DATABASE_URL", "mysql+pymysql://alx:$$Superdad77@localhost/alx")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
     db.init_app(app)
 
     with app.app_context():
         db.create_all()
 
+    @app.get("/")
+    def app_root():
+        return "** On Call App API **\n"
+
+    app.config["JWT_SECRET_KEY"] = "a very weak private key"
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = False
+    jwt = JWTManager(app)
+
+    @jwt.unauthorized_loader
+    def unauthoized_request(token):
+        return jsonify({"message": "Access denied. No token provided."}), 401
+
+   
+        
+
     api = Api(app)
     api.register_blueprint(UserBlueprint)
     api.register_blueprint(HttpMethodBlueprint)
     api.register_blueprint(CheckBlueprint)
 
-    worker.start_periodic_check()
+    # worker.start_periodic_check()
 
     return app
 
