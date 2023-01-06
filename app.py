@@ -5,6 +5,7 @@ This is the root module of this application
 import os
 from flask import Flask, jsonify
 from flask_smorest import Api
+from flask_cors import CORS
 from views.user import blp as UserBlueprint
 from views.http_method import blp as HttpMethodBlueprint
 from views.checks import blp as CheckBlueprint
@@ -27,13 +28,14 @@ def create_app(db_url=None):
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
     app.config["SQLALCHEMY_DATABASE_URI"] =\
-        db_url or os.getenv("DATABASE_URL", "mysql+pymysql://alx:$$Superdad77@localhost/alx")
+        db_url or os.getenv("DATABASE_URL", "mysql+pymysql://oncall:$$Superdad77@localhost/oncall")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
     db.init_app(app)
 
     with app.app_context():
         db.create_all()
 
+    CORS(app)
     @app.get("/")
     def app_root():
         return "** On Call App API **\n"

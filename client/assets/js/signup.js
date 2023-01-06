@@ -42,12 +42,11 @@ if(firstname == ''){ // check username not empty
 				type: 'POST',
 				dataType: "json",
 				data: 
-					{"firstname": firstname,
-						"lastname": lastname,
-						"email": email,
-						"phone": "098765412",
-						"password": password,
-					},
+					JSON.stringify({firstname:firstname,
+						lastname:lastname,
+						email:email,
+						password:password,
+					}),
 				success: function(response){
 					$('#message').html(response);
 				},
