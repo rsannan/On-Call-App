@@ -9,4 +9,5 @@ requests
 sqlalchemy
 flask_jwt_extended
 passlib
+flask-cors
 gunicorn
