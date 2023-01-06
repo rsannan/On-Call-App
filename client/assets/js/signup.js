@@ -40,11 +40,12 @@ if(firstname == ''){ // check username not empty
 			$.ajax({
 				url: '/api/users/',
 				type: 'POST',
+				dataType: "json",
 				data: 
 					{firstname:firstname,
 						lastname:lastname,
 						email:email,
-						password:password
+						password:password,
 					},
 				success: function(response){
 					$('#message').html(response);
