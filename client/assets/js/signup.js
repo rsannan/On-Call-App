@@ -2,7 +2,7 @@ document.querySelector('.img__btn').addEventListener('click', function() {
     document.querySelector('.cont').classList.toggle('s--signup');
   });
 
-  $( "#signupbtn" ).on( "click", function(e) {
+  $(document).on( "click", '#signupbtn', function(e) {
     e.preventDefault();
     var firstname = $('#sufname').val();
 	var lastname = $('#sulname').val();
@@ -51,7 +51,7 @@ if(firstname == ''){ // check username not empty
 				}
 			});
 				
-			$('#registraion_form')[0].reset();
+			$('#signupfr')[0].reset();
 		}
 	});
 
