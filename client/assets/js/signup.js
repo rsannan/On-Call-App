@@ -38,7 +38,7 @@ if(firstname == ''){ // check username not empty
 		} 
 		else{			
 			$.ajax({
-				url: 'alxtakiy.tech/api/users/',
+				url: '/api/users/',
 				type: 'POST',
 				data: 
 					{firstname:firstname,
