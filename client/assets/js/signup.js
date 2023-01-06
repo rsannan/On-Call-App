@@ -38,19 +38,40 @@ if(firstname == ''){ // check username not empty
 		} 
 		else{			
 			$.ajax({
-				url: '/api/users/',
+				url: 'alxtakiy.tech/api/users/',
 				type: 'POST',
 				dataType: "json",
 				data: 
-					{firstname:firstname,
-						lastname:lastname,
-						email:email,
-						password:password,
+					{"firstname": firstname,
+						"lastname": lastname,
+						"email": email,
+						"phone": "098765412",
+						"password": password,
 					},
 				success: function(response){
 					$('#message').html(response);
-				}
+				},
+				error: function( data ) {
+					if( data.status === 422 ) {
+						var errors = $.parseJSON(data.responseText);
+						$.each(errors, function (key, value) {
+							// console.log(key+ " " +value);
+						$('#message').addClass("alert alert-danger");
+			
+							if($.isPlainObject(value)) {
+								$.each(value, function (key, value) {                       
+									console.log(key+ " " +value);
+								$('#message').show().append(value+"<br/>");
+			
+								});
+							}else{
+							$('#message').show().append(value+"<br/>"); //this is my div with messages
+							}
+						});
+					  }
+					}
 			});
+
 				
 			$('#signupfr')[0].reset();
 		}
