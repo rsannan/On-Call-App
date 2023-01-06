@@ -35,6 +35,7 @@
   </header>
     <div class="vw-100 vh-100">
     <div class="cont">
+      <form action="">
       <div class="form sign-in">
         <h2>Welcome back,</h2>
         <label>
@@ -46,8 +47,9 @@
           <input type="password" />
         </label>
         <p class="forgot-pass">Forgot password?</p>
-        <button id="signinbtn" type="button" class="submit">Sign In</button>
+        <button id="signinbtn" type="submit" class="submit">Sign In</button>
       </div>
+    </form>
       <div class="sub-cont">
         <div class="img">
           <div class="img__text m--up">
@@ -63,21 +65,23 @@
             <span class="m--in">Sign In</span>
           </div>
         </div>
+        <form id="signupfr">
         <div class="form sign-up">
           <h2>Time to feel like home,</h2>
           <label>
             <span>Name</span>
-            <input type="text" />
+            <input type="text" id="suname"/>
           </label>
           <label>
             <span>Email</span>
-            <input type="email" />
+            <input type="email" id="suemail"/>
           </label>
           <label>
             <span>Password</span>
-            <input type="password" />
+            <input type="password" id="supassword"/>
           </label>
-          <button id="signupbtn" type="button" class="submit">Sign Up</button>
+          <button id="signupbtn" type="submit" class="submit">Sign Up</button>
+        </form>
         </div>
       </div>
     </div>
