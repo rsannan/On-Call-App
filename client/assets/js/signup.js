@@ -4,17 +4,24 @@ document.querySelector('.img__btn').addEventListener('click', function() {
 
   $( "#signupbtn" ).on( "click", function(e) {
     e.preventDefault();
-    var username = $('#suname').val();
+    var firstname = $('#sufname').val();
+	var lastname = $('#sulname').val();
 		var email 	 = $('#suemail').val();
 		var password = $('#supassword').val();
 			
 		var atpos  = email.indexOf('@');
 		var dotpos = email.lastIndexOf('.com');
 
-if(username == ''){ // check username not empty
-			alert('please enter username !!'); 
+if(firstname == ''){ // check username not empty
+			alert('please enter firstname !!'); 
 		}
-		else if(!/^[a-z A-Z]+$/.test(username)){ // check username allowed capital and small letters 
+		else if(lastname == ''){ 
+			alert('please enter lastname !!');
+		}
+		else if(!/^[a-z A-Z]+$/.test(firstname)){ // check username allowed capital and small letters 
+			alert('username only capital and small letters are allowed !!');
+		}
+		else if(!/^[a-z A-Z]+$/.test(lastname)){ 
 			alert('username only capital and small letters are allowed !!'); 
 		}
 		else if(email == ''){ //check email not empty
@@ -31,12 +38,13 @@ if(username == ''){ // check username not empty
 		} 
 		else{			
 			$.ajax({
-				url: 'signup.php',
-				type: 'post',
+				url: 'alxtakiy.tech/api/users/',
+				type: 'POST',
 				data: 
-					{newusername:username, 
-					 newemail:email, 
-					 newpassword:password
+					{firstname:firstname,
+						lastname:lastname,
+						email:email,
+						password:password
 					},
 				success: function(response){
 					$('#message').html(response);
