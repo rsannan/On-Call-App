@@ -5,6 +5,7 @@ This is the root module of this application
 import os
 from flask import Flask, jsonify
 from flask_smorest import Api
+from flask_cors import CORS
 from views.user import blp as UserBlueprint
 from views.http_method import blp as HttpMethodBlueprint
 from views.checks import blp as CheckBlueprint
@@ -34,6 +35,7 @@ def create_app(db_url=None):
     with app.app_context():
         db.create_all()
 
+    CORS(app)
     @app.get("/")
     def app_root():
         return "** On Call App API **\n"
