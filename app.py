@@ -20,6 +20,7 @@ def create_app(db_url=None):
     Configures and return a new flask app
     """
     app = Flask(__name__)
+    CORS(app)
     app.config["PROPAGATE_EXCEPTION"] = True
     app.config["API_TITLE"] = "On Call API"
     app.config["API_VERSION"] = "v1"
@@ -35,7 +36,6 @@ def create_app(db_url=None):
     with app.app_context():
         db.create_all()
 
-    CORS(app)
     @app.get("/")
     def app_root():
         return "** On Call App API **\n"
