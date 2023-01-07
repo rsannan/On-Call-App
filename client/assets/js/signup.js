@@ -39,11 +39,11 @@ if(firstname == ''){ // check username not empty
 		else{			
 			$.post("http://alxtakiy.tech/api/users/",
 			{
-			  firstname: firstname,
-			  lastname: lastname,
-			  email: email,
-			  password: password,
-			  phone: "0987654"
+			  'firstname': firstname,
+			  'lastname': lastname,
+			  'email': email,
+			  'password': password,
+			  'phone': "0987654"
 			},
 			function(data,status){
 			  alert("Data: " + data + "\nStatus: " + status);
