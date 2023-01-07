@@ -37,16 +37,20 @@ if(firstname == ''){ // check username not empty
 			alert('password must be 6 !!');
 		} 
 		else{			
-			$.post("http://alxtakiy.tech/api/users/",
-			{
-			  'firstname': firstname,
-			  'lastname': lastname,
-			  'email': email,
-			  'password': password,
-			  'phone': "0987654"
-			},
-			function(data,status){
-			  alert("Data: " + data + "\nStatus: " + status);
+			$.ajax({
+				url: 'http://alxtakiy.tech/api/users/',
+				type: 'post',
+				contentType: 'application/json',
+				data: 
+					{'firstname': firstname,
+					'lastname': lastname,
+					'email': email,
+					'password': password,
+					'phone': "0987654"
+					},
+				success: function(response){
+					$('#message').html(response);
+				}
 			});
 				
 			$('#signupfr')[0].reset();
