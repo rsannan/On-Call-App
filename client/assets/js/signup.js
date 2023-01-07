@@ -91,7 +91,7 @@ if(firstname == ''){ // check username not empty
 					dataType: 'json',
 					data: JSON.stringify(person),
 					success: function(response){
-						console.log(response),
+						console.log(response.body),
 						sessionStorage.setItem("token", response.access_token);
 					},
 					error: function(xhr, status, error) {
