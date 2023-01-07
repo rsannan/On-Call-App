@@ -36,21 +36,24 @@ if(firstname == ''){ // check username not empty
 		else if(password.length < 6){ //check password value length six 
 			alert('password must be 6 !!');
 		} 
-		else{			
+		else{	
+			var person= {firstname: firstname,
+				lastname: lastname,
+				email: email,
+				password: password,
+				phone: "0987654"}		
 			$.ajax({
 				url: 'http://alxtakiy.tech/api/users/',
 				type: 'POST',
-				contentType: 'application/json',
-				data: 
-					{firstname: firstname,
-					lastname: lastname,
-					email: email,
-					password: password,
-					phone: "0987654"
-					},
+				contentType: 'application/json; charset=utf-8;',
+				dataType: 'json',
+				data: JSON.stringify(person),
 				success: function(response){
 					$('#message').html(response);
-				}
+				},
+				error: function(xhr, status, error) {
+					alert(xhr.responseText);
+				  }
 			});
 				
 			$('#signupfr')[0].reset();
