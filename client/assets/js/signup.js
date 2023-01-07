@@ -67,6 +67,7 @@ if(firstname == ''){ // check username not empty
 				
 			var atpos  = email.indexOf('@');
 			var dotpos = email.lastIndexOf('.com');
+			console.log(email, password);
 	
 	if(email == ''){ // check username not empty
 				alert('please enter email !!'); 
@@ -91,11 +92,13 @@ if(firstname == ''){ // check username not empty
 					dataType: 'json',
 					data: JSON.stringify(person),
 					success: function(response){
-						console.log(response.body),
+						console.log(response.body['access_token']),
 						sessionStorage.setItem("token", response.access_token);
 					},
 					error: function(xhr, status, error) {
 						alert(xhr.responseText);
+						console.log(error);
+						console.log(status);
 					  }
 				});
 					
