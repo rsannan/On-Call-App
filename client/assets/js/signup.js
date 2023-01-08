@@ -54,7 +54,7 @@ if(firstname == ''){ // check username not empty
 				data: JSON.stringify(person),
 				success: function(response){
 					$('#message').html("Thank You for joining us."),
-					setTimeout(window.location.replace("http://alxtakiy.tech/signup.html"), 10000);
+					setTimeout(window.location.replace("signup.html"), 10000);
 				},
 				error: function(xhr, status, error) {
 					alert(xhr.responseText);
@@ -97,7 +97,8 @@ if(firstname == ''){ // check username not empty
 					dataType: 'json',
 					data: JSON.stringify(person),
 					success: function(response){
-						sessionStorage.setItem("token", response['access_token']);
+						sessionStorage.setItem("token", response['access_token']),
+						setTimeout(window.location.replace("homepage.html"), 10000);
 
 					},
 					error: function(xhr, status, error) {
