@@ -97,8 +97,6 @@ if(firstname == ''){ // check username not empty
 					},
 					error: function(xhr, status, error) {
 						alert(xhr.responseText);
-						console.log(error);
-						console.log(status);
 					  }
 				});
 					
