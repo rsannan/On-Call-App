@@ -6,9 +6,7 @@ $( document ).ready(function() {
         headers: {
             'Authorization': token,
         },
-        contentType: 'application/json; charset=utf-8;',
         dataType: 'json',
-        data: JSON.stringify(person),
         success: function(response){
             console.log(response)
         },
