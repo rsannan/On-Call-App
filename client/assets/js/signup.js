@@ -97,7 +97,8 @@ if(firstname == ''){ // check username not empty
 					dataType: 'json',
 					data: JSON.stringify(person),
 					success: function(response){
-						sessionStorage.setItem("token", response['access_token']),
+						var token = "Bearer ".concat(response['access_token'])
+						sessionStorage.setItem("token", token),
 						setTimeout(window.location.replace("homepage.html"), 10000);
 
 					},
