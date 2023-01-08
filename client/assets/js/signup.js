@@ -8,6 +8,7 @@ document.querySelector('.img__btn').addEventListener('click', function() {
 	var lastname = $('#sulname').val();
 		var email 	 = $('#suemail').val();
 		var password = $('#supassword').val();
+		var phone = $('#suphone').val();
 			
 		var atpos  = email.indexOf('@');
 		var dotpos = email.lastIndexOf('.com');
@@ -19,16 +20,19 @@ if(firstname == ''){ // check username not empty
 			alert('please enter lastname !!');
 		}
 		else if(!/^[a-z A-Z]+$/.test(firstname)){ // check username allowed capital and small letters 
-			alert('username only capital and small letters are allowed !!');
+			alert('firstname only capital and small letters are allowed !!');
 		}
 		else if(!/^[a-z A-Z]+$/.test(lastname)){ 
-			alert('username only capital and small letters are allowed !!'); 
+			alert('firstname only capital and small letters are allowed !!'); 
 		}
 		else if(email == ''){ //check email not empty
 			alert('please enter email address !!'); 
 		}
 		else if(atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= email.length){ //check valid email format
 			alert('please enter valid email address !!'); 
+		}
+		else if(!/^[0-9]+$/.test(phone)){ 
+			alert('please enter valid phone number !!'); 
 		}
 		else if(password == ''){ //check password not empty
 			alert('please enter password !!'); 
@@ -41,7 +45,7 @@ if(firstname == ''){ // check username not empty
 				lastname: lastname,
 				email: email,
 				password: password,
-				phone: "0987654"}		
+				phone: phone}		
 			$.ajax({
 				url: 'http://alxtakiy.tech/api/users/',
 				type: 'POST',
@@ -49,7 +53,8 @@ if(firstname == ''){ // check username not empty
 				dataType: 'json',
 				data: JSON.stringify(person),
 				success: function(response){
-					$('#message').html(response);
+					$('#message').html("Thank You for joining us."),
+					setTimeout(window.location.replace("http://alxtakiy.tech/signup.html"), 10000);
 				},
 				error: function(xhr, status, error) {
 					alert(xhr.responseText);
@@ -86,14 +91,14 @@ if(firstname == ''){ // check username not empty
 					email: email,
 					password: password,}		
 				$.ajax({
-					url: 'alxtakiy.tech/api/users/login',
+					url: 'http://alxtakiy.tech/api/users/login',
 					type: 'POST',
 					contentType: 'application/json; charset=utf-8;',
 					dataType: 'json',
 					data: JSON.stringify(person),
 					success: function(response){
-						console.log(response.body['access_token']),
-						sessionStorage.setItem("token", response.access_token);
+						sessionStorage.setItem("token", response['access_token']);
+
 					},
 					error: function(xhr, status, error) {
 						alert(xhr.responseText);
