@@ -34,7 +34,6 @@ class BackgroundWorkier:
                 status_code = response.status_code
                 if status_code == check.status_code:
                     check.status = True
-                    check.count = check.count + 1
                 else:
                     check.status = False
                 self.session.add(check)
