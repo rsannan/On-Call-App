@@ -3,6 +3,8 @@
 This is the root module of this application
 """
 import os
+import redis
+from rq import Queue
 from flask import Flask, jsonify
 from flask_smorest import Api
 from flask_cors import CORS
@@ -13,14 +15,17 @@ import models # This is needed to create tables in the database
 from db import db
 from worker import worker
 from flask_jwt_extended import JWTManager
-
+from tasks import init_worker
 
 def create_app(db_url=None):
     """
     Configures and return a new flask app
     """
+    redis_connection = redis.from_url(os.getenv("REDIS_URL"))
+
     app = Flask(__name__)
     CORS(app)
+    app.queue = Queue("checks", connection=redis_connection)
     app.config["PROPAGATE_EXCEPTION"] = True
     app.config["API_TITLE"] = "On Call API"
     app.config["API_VERSION"] = "v1"
@@ -56,7 +61,8 @@ def create_app(db_url=None):
     api.register_blueprint(HttpMethodBlueprint)
     api.register_blueprint(CheckBlueprint)
 
-    # worker.start_periodic_check()
+    #worker.start_periodic_check()
+    app.queue.enqueue(init_worker)
 
     return app
 

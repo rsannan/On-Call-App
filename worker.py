@@ -1,3 +1,4 @@
+import os
 from threading import Timer
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
@@ -5,6 +6,9 @@ from sqlalchemy.exc import SQLAlchemyError
 from models.check import CheckModel
 import requests
 from requests.exceptions import InvalidURL, HTTPError, RequestException
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class BackgroundWorkier:
@@ -23,12 +27,14 @@ class BackgroundWorkier:
         
     def perform_check(self):
         checks = self.session.query(CheckModel).all()
+        print(checks)
         for check in checks:
             try:
                 response = requests.get(check.url)
                 status_code = response.status_code
                 if status_code == check.status_code:
                     check.status = True
+                    check.count = check.count + 1
                 else:
                     check.status = False
                 self.session.add(check)
@@ -45,6 +51,7 @@ class BackgroundWorkier:
 
 
     def start_periodic_check(self):
+        print("Hello World")
         self.perform_check()
 
         period = Timer(5, self.start_periodic_check)
@@ -52,7 +59,10 @@ class BackgroundWorkier:
 
         
 
-worker = BackgroundWorkier("mysql+pymysql://root:superdad77@localhost:3306/alx")
+worker = BackgroundWorkier(os.getenv("DATABASE_URL"))
+
+if __name__ == "__main__":
+    worker.start_periodic_check()
 
 
 
