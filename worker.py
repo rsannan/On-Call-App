@@ -27,12 +27,10 @@ class BackgroundWorkier:
         
     def perform_check(self):
         checks = self.session.query(CheckModel).all()
-        print(checks)
         for check in checks:
             try:
                 response = requests.get(check.url)
                 status_code = response.status_code
-                print(status_code, check.status_code)
                 if status_code == check.status_code:
                     check.status = True
                 else:
