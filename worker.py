@@ -32,6 +32,7 @@ class BackgroundWorkier:
             try:
                 response = requests.get(check.url)
                 status_code = response.status_code
+                print(status_code, check.status_code)
                 if status_code == check.status_code:
                     check.status = True
                 else:
@@ -50,7 +51,6 @@ class BackgroundWorkier:
 
 
     def start_periodic_check(self):
-        print("Hello World")
         self.perform_check()
 
         period = Timer(5, self.start_periodic_check)
