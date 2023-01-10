@@ -9,9 +9,15 @@ $( document ).ready(function() {
         dataType: 'json',
         success: function(response){
             console.log(response)
+            $('edfirstname').text('New Header!!!'),
+            $('edlastname').text('New Header!!!'),
+            $('edphone').text('New Header!!!'),
+            $('edemail').text('New Header!!!');
         },
         error: function(xhr, status, error) {
             alert(xhr.responseText);
           }
     });
   });
+
+
