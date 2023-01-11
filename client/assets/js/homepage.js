@@ -69,7 +69,8 @@ function getchecks() {
   function showcheck(res, id){
     // check for user idnumber and match with users data
     // 
-    for (let i = 0; i < res.length; i++) {
+    var arr = res.data;
+    for (let i = 0; i < arr.length; i++) {
         var data = res.data[i];
         // if (id = data.user_id) {
             var title = "<td>"+ data.title +"</td>"
