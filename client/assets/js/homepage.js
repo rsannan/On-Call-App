@@ -27,6 +27,7 @@ function getuser() {
 
     var userid = getuserid();
     var url = 'http://alxtakiy.tech/api/users/' + userid
+
     axios({
         method: 'get',
         url: url
@@ -45,10 +46,15 @@ function getuser() {
 
 function getchecks() {
     var userid = getuserid();
-    var url = 'http://alxtakiy.tech/api/checks'
+    var url = 'http://alxtakiy.tech/api/checks';
+    var token = sessionStorage.getItem('token');
+
     axios({
         method: 'get',
-        url: url
+        url: url,
+        headers: {
+            Authorization: 'Bearer ' + token
+          }
     })
         .then(res => showcheck(res, userid))
         .catch(err => console.error(err));
