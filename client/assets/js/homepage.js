@@ -59,7 +59,7 @@ function getchecks() {
         method: 'get',
         url: url,
         headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: token,
           }
     })
         .then(res => showcheck(res, userid))
