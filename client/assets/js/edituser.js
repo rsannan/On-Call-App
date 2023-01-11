@@ -1,5 +1,22 @@
+function getuserid() {
+    var url = 'http://alxtakiy.tech/api/users/'
+    axios({
+        method: 'get',
+        url: url
+    })
+        .then(res => function(res){
+            for (let i = 0; i < res.length; i++) {
+                var data = res.data[i];
+                if (data.email == sessionStorage.getItem("email")){
+                    return data.id;
+                }
+            }
+        })
+        .catch(err => console.error(err));
+  };
+
 function getuser() {
-    var userid = 1;
+    var userid = getuserid();
     var url = 'http://alxtakiy.tech/api/users/' + userid
     axios({
         method: 'get',

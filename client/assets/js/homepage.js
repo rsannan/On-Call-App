@@ -1,5 +1,31 @@
+function getuserid() {
+    var url = 'http://alxtakiy.tech/api/users/'
+    axios({
+        method: 'get',
+        url: url
+    })
+        .then(res => function(res){
+            for (let i = 0; i < res.length; i++) {
+                var data = res.data[i];
+                if (data.email == sessionStorage.getItem("email")){
+                    return data.id;
+                }
+            }
+        })
+        .catch(err => console.error(err));
+  };
+
+
+  function changeout(res){
+    // check for user idnumber and match with users data
+    // 
+    let arr = res.data;
+    let name = arr.firstname+ " " + arr.lastname;
+     $('#hpname').text(name);
+};
 function getuser() {
-    var userid = 1;
+
+    var userid = getuserid();
     var url = 'http://alxtakiy.tech/api/users/' + userid
     axios({
         method: 'get',
@@ -18,7 +44,7 @@ function getuser() {
 };
 
 function getchecks() {
-    var userid = 1;
+    var userid = getuserid();
     var url = 'http://alxtakiy.tech/api/checks'
     axios({
         method: 'get',
