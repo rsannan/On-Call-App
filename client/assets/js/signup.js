@@ -100,7 +100,7 @@ if(firstname == ''){ // check username not empty
 						var token = "Bearer ".concat(response['access_token'])
 						localStorage.setItem("token", token),
 						localStorage.setItem("email", email),
-						setTimeout(window.location.replace("homepage.html"), 10000);
+						setTimeout(window.location.assign("homepage.html"), 10000);
 
 					},
 					error: function(xhr, status, error) {
