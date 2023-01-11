@@ -33,10 +33,14 @@ function postcheck() {
     method_id: method,
     status_code: code
     }
+    var token = sessionStorage.getItem('token');
     axios({
         method: 'post',
         url: url,
-        data: data
+        data: data,
+        headers: {
+            Authorization: 'Bearer ' + token
+          }
     })
         .then(res => console.log(res))
         .catch(err => console.error(err));
