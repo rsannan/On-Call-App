@@ -99,6 +99,7 @@ if(firstname == ''){ // check username not empty
 					success: function(response){
 						var token = "Bearer ".concat(response['access_token'])
 						sessionStorage.setItem("token", token),
+						sessionStorage.setItem("email", email),
 						setTimeout(window.location.replace("homepage.html"), 10000);
 
 					},

@@ -1,17 +1,49 @@
-$( document ).ready(function() {
-    var token = sessionStorage.token;
-    $.ajax({
-        url: 'http://3.239.72.122:5000/api/checks',
-        type: 'GET',
-        headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MjkyNzgyMSwianRpIjoiNmQxNzg0NjUtOGIyOC00MTM0LWE0ZjctNzUyZGFiNmYzYjk3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjcyOTI3ODIxfQ.ctvSSie9E_xrKN921YmzUtNnE-hp8uxpRDCHGXnfZFs',
-        },
-        dataType: 'json',
-        success: function(response){
-            console.log(response)
-        },
-        error: function(xhr, status, error) {
-            alert(xhr.responseText);
-          }
-    });
-  });
+function getuser() {
+    var userid = 1;
+    var url = 'http://alxtakiy.tech/api/users/' + userid
+    axios({
+        method: 'get',
+        url: url
+    })
+        .then(res => changeout(res))
+        .catch(err => console.error(err));
+  };
+
+  function changeout(res){
+    // check for user idnumber and match with users data
+    // 
+    let arr = res.data;
+    let name = arr.firstname+ " " + arr.lastname;
+     $('#hpname').text(name);
+};
+
+function getchecks() {
+    var userid = 1;
+    var url = 'http://alxtakiy.tech/api/checks'
+    axios({
+        method: 'get',
+        url: url
+    })
+        .then(res => showcheck(res, userid))
+        .catch(err => console.error(err));
+  };
+
+  function showcheck(res, id){
+    // check for user idnumber and match with users data
+    // 
+    for (let i = 0; i < res.length; i++) {
+        var data = res.data[i];
+        if (id = data.user_id) {
+            var title = "<td>"+ data.title +"</td>"
+            var url = "<td>"+ data.url +"</td>"
+            var code = "<td>"+ data.status_code +"</td>"
+            var curcode = "<td>"+ data.status_code +"</td>"
+            var date = "<td>"+ "0" +"</td>"
+            var str = "tr" + title + url + code + curcode + date +"</tr>"
+            $('#datatablesSimple > tbody:last-child').append(str);
+        }
+    }
+};
+
+window.addEventListener('load', getchecks);
+window.addEventListener('load', getuser);
