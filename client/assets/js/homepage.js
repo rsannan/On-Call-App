@@ -51,7 +51,7 @@ function getuser() {
 
 function getchecks() {
     getuserid();
-    var userid = localStorage.getItem("id");
+    var userid = localStorage.id;
     var url = 'http://alxtakiy.tech/api/checks';
     var token = localStorage.token;
 
@@ -71,7 +71,7 @@ function getchecks() {
     // 
     for (let i = 0; i < res.length; i++) {
         var data = res.data[i];
-        if (id = data.user_id) {
+        // if (id = data.user_id) {
             var title = "<td>"+ data.title +"</td>"
             var url = "<td>"+ data.url +"</td>"
             var code = "<td>"+ data.status_code +"</td>"
@@ -79,7 +79,7 @@ function getchecks() {
             var date = "<td>"+ "0" +"</td>"
             var str = "tr" + title + url + code + curcode + date +"</tr>"
             $('#datatablesSimple > tbody:last-child').append(str);
-        }
+        // }
     }
 };
 $( document ).ready( getchecks );

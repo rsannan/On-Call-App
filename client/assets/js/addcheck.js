@@ -1,5 +1,5 @@
 function getuser() {
-    var userid = 1;
+    var userid = 4;
     var url = 'http://alxtakiy.tech/api/users/' + userid
     axios({
         method: 'get',
@@ -21,7 +21,7 @@ function getuser() {
 };
 
 function postcheck() {
-    var userid = 1;
+    var userid = 4;
     var url = 'http://alxtakiy.tech/api/checks/'
     var title = $('#actitle').val();
     var acurl = $('#acurl').val();
@@ -39,7 +39,7 @@ function postcheck() {
         url: url,
         data: data,
         headers: {
-            Authorization: 'Bearer ' + token
+            Authorization: token
           }
     })
         .then(res => console.log(res))
