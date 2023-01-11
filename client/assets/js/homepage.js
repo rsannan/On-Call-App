@@ -46,7 +46,7 @@ function getuser() {
 
 function getchecks() {
     var userid = getuserid();
-    var url = 'http://alxtakiy.tech/api/checks';
+    var url = 'http://localhost:5000/api/checks';
     var token = sessionStorage.getItem('token');
 
     axios({
