@@ -4,17 +4,21 @@ function getuserid() {
         method: 'get',
         url: url
     })
-        .then(res => function(res){
-            for (let i = 0; i < res.length; i++) {
-                var data = res.data[i];
-                if (data.email == sessionStorage.getItem("email")){
-                    return data.id;
-                }
-            }
-        })
+        .then(res =>  getid(res))
         .catch(err => console.error(err));
   };
 
+
+  function getid(res){
+    var arr = res.data;
+    for (let i = 0; i < arr.length; i++) {
+        var data = res.data[i];
+        if (data.email == localStorage.getItem('email')){
+            localStorage.setItem("id",data.id);
+            break;
+        }
+    }
+}
 
   function changeout(res){
     // check for user idnumber and match with users data
@@ -24,8 +28,8 @@ function getuserid() {
      $('#hpname').text(name);
 };
 function getuser() {
-
-    var userid = getuserid();
+    getuserid();
+    var userid = localStorage.getItem("id");
     var url = 'http://alxtakiy.tech/api/users/' + userid
 
     axios({
@@ -45,9 +49,10 @@ function getuser() {
 };
 
 function getchecks() {
-    var userid = getuserid();
+    getuserid();
+    var userid = localStorage.getItem("id");
     var url = 'http://localhost:5000/api/checks';
-    var token = sessionStorage.getItem('token');
+    var token = localStorage.getItem('token');
 
     axios({
         method: 'get',
