@@ -1,3 +1,4 @@
+
 function getuserid() {
     var url = 'http://alxtakiy.tech/api/users/'
     axios({
@@ -51,14 +52,14 @@ function getuser() {
 function getchecks() {
     getuserid();
     var userid = localStorage.getItem("id");
-    var url = 'http://localhost:5000/api/checks';
-    var token = localStorage.getItem('token');
+    var url = 'http://alxtakiy.tech/api/checks';
+    var token = localStorage.token;
 
     axios({
         method: 'get',
         url: url,
         headers: {
-            Authorization: 'Bearer ' + token
+            Authorization: 'Bearer ' + token,
           }
     })
         .then(res => showcheck(res, userid))
@@ -81,6 +82,5 @@ function getchecks() {
         }
     }
 };
-
-window.addEventListener('load', getchecks);
-window.addEventListener('load', getuser);
+$( document ).ready( getchecks );
+$( document ).ready( getuser );
