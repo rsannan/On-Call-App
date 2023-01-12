@@ -72,7 +72,7 @@ function getchecks() {
     var arr = res.data;
     for (let i = 0; i < arr.length; i++) {
         var data = res.data[i];
-        // if (id = data.user_id) {
+         if (id == data.user_id) {
             var title = "<td>"+ data.title +"</td>"
             var url = "<td>"+ data.url +"</td>"
             var code = "<td>"+ data.status_code +"</td>"
@@ -80,7 +80,7 @@ function getchecks() {
             var date = "<td>"+ "0" +"</td>"
             var str = "tr" + title + url + code + curcode + date +"</tr>"
             $('#datatablesSimple > tbody:last-child').append(str);
-        // }
+         }
     }
 };
 $( document ).ready( getchecks );
