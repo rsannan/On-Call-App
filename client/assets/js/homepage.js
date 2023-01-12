@@ -76,9 +76,9 @@ function getchecks() {
             var title = "<td>"+ data.title +"</td>"
             var url = "<td>"+ data.url +"</td>"
             var code = "<td>"+ data.status_code +"</td>"
-            var curcode = "<td>"+ data.status_code +"</td>"
-            var date = "<td>"+ "0" +"</td>"
-            var str = "<tr>" + title + url + code + curcode + date +"</tr>"
+            var curcode = "<td>"+ data.status +"</td>"
+            var count = "<td>"+ data.check_count +"</td>"
+            var str = "<tr>" + title + url + code + curcode + count +"</tr>"
             $('#datatablesSimple > tbody:last-child').append(str);
          }
         }
