@@ -55,7 +55,6 @@ function postcheck() {
     url: acurl,
     method_id: method,
     status_code: code,
-    userid : userid
     }
     var token = localStorage.token;
     axios({
@@ -67,8 +66,8 @@ function postcheck() {
             'Content-Type': 'application/json'
           }
     })
-        .then(res => console.log(res))
-        // .then (setTimeout(window.location.assign("homepage.html"), 10000))
+        
+        .then (setTimeout(window.location.assign("homepage.html"), 10000))
         .catch(err => console.error(err));
   };
   window.addEventListener('load', getuser);

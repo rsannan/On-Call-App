@@ -78,7 +78,7 @@ function getchecks() {
             var code = "<td>"+ data.status_code +"</td>"
             var curcode = "<td>"+ data.status_code +"</td>"
             var date = "<td>"+ "0" +"</td>"
-            var str = "tr" + title + url + code + curcode + date +"</tr>"
+            var str = "<tr>" + title + url + code + curcode + date +"</tr>"
             $('#datatablesSimple > tbody:last-child').append(str);
          }
     }
