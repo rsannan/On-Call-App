@@ -25,4 +25,5 @@ class CheckModel(db.Model):
 
     method = db.relationship("HttpMethodModel", back_populates="checks")
     user = db.relationship("UserModel", back_populates="checks")
+    headers = db.relationship("HTTPHeaderModel", back_populates="check", lazy="dynamic")
     # on_call_user = db.relationship("UserModel", back_populates="on_call_users")
