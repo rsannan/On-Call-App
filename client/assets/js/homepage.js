@@ -86,3 +86,4 @@ function getchecks() {
 };
 $( document ).ready( getchecks );
 $( document ).ready( getuser );
+$( document ).ready( setTimeout(location.reload(), 100000) );
