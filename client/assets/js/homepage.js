@@ -82,7 +82,6 @@ function getchecks() {
             $('#datatablesSimple > tbody:last-child').append(str);
          }
         }
-        location.reload();
 };
 $( document ).ready( getchecks );
 $( document ).ready( getuser );
