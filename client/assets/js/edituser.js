@@ -4,19 +4,25 @@ function getuserid() {
         method: 'get',
         url: url
     })
-        .then(res => function(res){
-            for (let i = 0; i < res.length; i++) {
-                var data = res.data[i];
-                if (data.email == sessionStorage.getItem("email")){
-                    return data.id;
-                }
-            }
-        })
+        .then(res =>  getid(res))
         .catch(err => console.error(err));
   };
 
+
+  function getid(res){
+    var arr = res.data;
+    for (let i = 0; i < arr.length; i++) {
+        var data = res.data[i];
+        if (data.email == localStorage.getItem('email')){
+            localStorage.setItem("id",data.id);
+            break;
+        }
+    }
+}
+
 function getuser() {
-    var userid = getuserid();
+    getuserid();
+    var userid = localStorage.id;
     var url = 'http://alxtakiy.tech/api/users/' + userid
     axios({
         method: 'get',
@@ -45,6 +51,7 @@ function getuser() {
 };
 
 function updateuser(){
+    var user_id = localStorage.id;
     var firstname = $('#edfirstname').val();
 	var lastname = $('#edlastname').val();
 		var email 	 = $('#edemail').val();
@@ -53,13 +60,11 @@ function updateuser(){
         lastname: lastname,
         email: email,
         phone: phone}
-    axios.put('http://alxtakiy.tech/api/users/1', data
+    axios.put('http://alxtakiy.tech/api/users/' + user_id, data
         
     )
-        .then(res => console.log(res))
+        .then(setTimeout(window.location.assign("homepage.html"), 10000))
         .catch(err => console.error(err));
-
-        document.getElementById('savebtn').addEventListener('click', getuser);
 };
 
 document.getElementById('savebtn').addEventListener('click', updateuser);
