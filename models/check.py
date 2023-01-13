@@ -5,6 +5,7 @@ and maps it to the CheckModel.
 """
 
 from db import db
+from datetime import datetime
 
 class CheckModel(db.Model):
     """
@@ -18,12 +19,15 @@ class CheckModel(db.Model):
     url = db.Column(db.String(1024), nullable=False)
     method_id = db.Column(db.Integer, db.ForeignKey("http_methods.id"), nullable=False)
     status_code = db.Column(db.Integer, nullable=False)
-    check_count = db.Column(db.Integer, default=0, nullable=True)
+    response_status_code = db.Column(db.Integer, nullable=True)
+    response_time = db.Column(db.Integer, default=0, nullable=True)
+
     status = db.Column(db.Boolean, nullable=True, default=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    # on_call_user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow())
+    last_checked = db.Column(db.DateTime)
+    
 
     method = db.relationship("HttpMethodModel", back_populates="checks")
     user = db.relationship("UserModel", back_populates="checks")
-    headers = db.relationship("HTTPHeaderModel", back_populates="check", lazy="dynamic")
-    # on_call_user = db.relationship("UserModel", back_populates="on_call_users")
+    headers = db.relationship("HTTPHeaderModel", back_populates="check")

@@ -1,3 +1,4 @@
 .appenv/lib/
 .appenv/lib64/
 .appenv/share
+._appenv

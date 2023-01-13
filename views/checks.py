@@ -6,6 +6,7 @@ This module contains the code for the checks endpoing.
 from flask_smorest import Blueprint, abort
 from flask.views import MethodView
 from models.check import CheckModel
+from models.http_header import HTTPHeaderModel
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from views.schemas.check import CheckCreateSchema, CheckReadSchema, CheckUpdateSchema
 from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
@@ -32,6 +33,7 @@ class CheckList(MethodView):
         check.method_id = check_data["method_id"]
         check.status_code = check_data["status_code"]
         check.user_id = user_id
+        check.headers = [HTTPHeaderModel(**h) for h in check_data["headers"]]
 
         try:
             db.session.add(check)
@@ -74,6 +76,7 @@ class Check(MethodView):
         check.url = check_data["url"]
         check.method_id = check_data["method_id"]
         check.status_code = check_data["status_code"]
+        check.headers = [HTTPHeaderModel(**h) for h in check_data["headers"]]
 
         try:
             db.session.add(check)
@@ -94,7 +97,7 @@ class Check(MethodView):
             abort(401, message="Looks like this check belongs to another user.")
 
         try:
-            db.session.delete(check)
+            db.session.delete(check, )
             db.session.commit()
         except SQLAlchemyError:
             abort(500, message="An error occured while deleting a check.")
