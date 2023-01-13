@@ -57,9 +57,9 @@ class BackgroundWorkier:
                     check.status = True
                 else:
                     if check.status != False:
-                        print("Your check {} with http method {} just went down."
+                        self.send_mail(to=check.user.email, message="Your check {} with http method {} just went down."
                             .format(check.title, check.method.name))
-
+                    
                     check.status = False
 
                 check.response_status_code = status_code
@@ -77,19 +77,18 @@ class BackgroundWorkier:
                 print(f"Something went wrong while making an http request to {check.url}")
             
 
-    def send_mail(self):
+    def send_mail(self, to, message):
         message = Mail(
             from_email='kanytechsolutions@gmail.com',
-            to_emails='kanytakiy@gmail.com',
+            to_emails=to,
             subject='On Call API Check',
-            html_content='<strong>and easy to do anywhere, even with Python</strong>')
+            html_content=message)
         try:
-            sg = SendGridAPIClient("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")
-            # print(os.getenv("SEND_API_KEY"))
+            sg = SendGridAPIClient(os.getenv("SEND_API_KEY"))
             response = sg.send(message)
-            # print(response.status_code)
         except Exception as e:
             print(e)
+
 
     def start_periodic_check(self):
         self.perform_check()

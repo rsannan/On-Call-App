@@ -32,6 +32,7 @@ class CheckReadSchema(Schema):
     method_id = fields.Int()
     data = fields.Str()
     status_code = fields.Integer()
+    response_status_code = fields.Integer()
     response_time = fields.Int()
     created_at = fields.DateTime(dump_only=True),
     last_checked = fields.DateTime(dump_only=True),
@@ -49,6 +50,7 @@ class CheckUpdateSchema(Schema):
     method_id = fields.Int()
     data = fields.Str()
     status_code = fields.Integer()
+    response_status_code = fields.Integer()
     response_time = fields.Int()
     status = fields.Bool()
     user_id = fields.Int(dump_only=True)    

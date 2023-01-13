@@ -76,15 +76,19 @@ class Check(MethodView):
         check.url = check_data["url"]
         check.method_id = check_data["method_id"]
         check.status_code = check_data["status_code"]
-        check.headers = [HTTPHeaderModel(**h) for h in check_data["headers"]]
+        # check.headers = [HTTPHeaderModel(**h) for h in check_data["headers"]]
+
+        # abort(503, message="This feature is currently undergoing some maintenance.")
 
         try:
             db.session.add(check)
             db.session.commit()
-        except IntegrityError:
+        except IntegrityError as e:
+            print(e)
             abort(500, message=("An error occured while updating a check."
                 "The user_id may have no reference to a user"))
-        except SQLAlchemyError:
+        except SQLAlchemyError as e:
+            print(e)
             abort(500, message="An error occured while updating a check")
 
         return check

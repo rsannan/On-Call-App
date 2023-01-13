@@ -21,11 +21,11 @@ def create_app(db_url=None):
     """
     Configures and return a new flask app
     """
-    redis_connection = redis.from_url(os.getenv("REDIS_URL"))
+    redis_connection = redis.from_url(os.getenv("REDIS_URL"), )
 
     app = Flask(__name__)
     CORS(app)
-    app.queue = Queue("checks", connection=redis_connection)
+    app.queue = Queue("checks", connection=redis_connection, default_timeout=-1)
     app.config["PROPAGATE_EXCEPTION"] = True
     app.config["API_TITLE"] = "On Call API"
     app.config["API_VERSION"] = "v1"
