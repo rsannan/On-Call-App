@@ -67,21 +67,27 @@ function getchecks() {
   };
 
   function showcheck(res, id){
-    // check for user idnumber and match with users data
-    // 
+ 
     var arr = res.data;
     for (let i = 0; i < arr.length; i++) {
         var data = res.data[i];
-        
+        const currentDate = new Date();
+        const currentDayOfMonth = currentDate.getDate();
+        const currentMonth = currentDate.getMonth(); // Be careful! January is 0, not 1
+        const currentYear = currentDate.getFullYear();
+
+        const dateString = currentDayOfMonth + "-" + (currentMonth + 1) + "-" + currentYear;
          if (id == data.user_id) {
             var title = "<td>"+ data.title +"</td>"
             var url = "<td>"+ data.url +"</td>"
             var code = "<td>"+ data.status_code +"</td>"
-            var curcode = "<td>"+ data.status +"</td>"
+            var curcode = "<td>"+ data.response_status_code +"</td>"
             var count = "<td>"+ data.check_count +"</td>"
+            var reptime = "<td>"+ data.response_time +"</td>"
+            var date = "<td>"+ dateString +"</td>"
             var del = "<button class='btn btn-delete' id='" + data.id + "' onClick='removecheck(this.id)''> <span class='mdi mdi-delete mdi-24px'></span> " + 
             "<span class='mdi mdi-delete-empty mdi-24px'></span> <span>Delete</span></button>"
-            var str = "<tr>" + title + url + code + curcode + count + del + "</tr>"
+            var str = "<tr>" + title + url + code + curcode + count + reptime + del + "</tr>"
             $('#datatablesSimple > tbody:last-child').append(str);
          }
         }
