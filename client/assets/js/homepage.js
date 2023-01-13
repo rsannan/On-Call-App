@@ -87,7 +87,7 @@ function getchecks() {
             var date = "<td>"+ dateString +"</td>"
             var del = "<button class='btn btn-delete' id='" + data.id + "' onClick='removecheck(this.id)''> <span class='mdi mdi-delete mdi-24px'></span> " + 
             "<span class='mdi mdi-delete-empty mdi-24px'></span> <span>Delete</span></button>"
-            var str = "<tr>" + title + url + code + curcode + count + reptime + del + "</tr>"
+            var str = "<tr>" + title + url + code + curcode + count + reptime + date + del + "</tr>"
             $('#datatablesSimple > tbody:last-child').append(str);
          }
         }
