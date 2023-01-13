@@ -18,3 +18,7 @@ function getuserid() {
 };
 
 window.addEventListener('load', getuserid());
+
+var e = document.getElementById("dog-names");
+
+document.getElementById('#submit').addEventListener('click', console.log(e.value));
