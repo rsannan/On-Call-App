@@ -78,8 +78,8 @@ function postcheck() {
     url: acurl,
     method_id: method,
     status_code: code,
-    body: ubody,
-    header: uheader
+    data: ubody,
+    headers: uheader
     }
     var token = localStorage.token;
     axios({
