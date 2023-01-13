@@ -63,7 +63,7 @@ function postcheck() {
     var url = 'http://alxtakiy.tech/api/checks/'
     var title = $('#actitle').val();
     var acurl = $('#acurl').val();
-    var method = $('#acmethod').val();
+    var method = $('#methodsel').val();
     var code = $('#accode').val();
     var uheader = userheaders;
     var ubody = userbody;
@@ -75,6 +75,7 @@ function postcheck() {
     body: ubody,
     header: uheader
     }
+
     var token = localStorage.token;
     axios({
         method: 'post',
