@@ -23,7 +23,7 @@ To use our on call management app, follow the steps bellow;
 2. Make changes and test.
 3. Submit Pull Request with a comprehensive description of changes.
 
-## Contributors
+## Authors
 * **[Asamoah Seth](https://twitter.com/kseth15)** <[Kwame8919](https://github.com/Kwame8919)>
 * **[Reginald Shawn Annan](https://twitter.com/kseth15)** <[Reginald Shawn Annan](https://github.com/rsannan)>
 * **[Isaac Takiyara Kanyiti](https://twitter.com/isaac_takiy)** <[Isaac-web](https://github.com/Isaac-web)>
