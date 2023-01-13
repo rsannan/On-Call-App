@@ -15,5 +15,13 @@ To use our on call management app, follow the steps bellow;
 - On your dashboard, you will find a button that allows you to create checks (which are basically the endpoints you want to moitor)
 - Click on that button, fill in the necessary details and save it.
 - Now your checks will be monitored by background workers that run on our servers.
+- If any or your checks is down, you will be notified by our servers via email.
+
+
+## Contribution
+
+* **[Asamoah Seth](https://twitter.com/kseth15)** <[Isaac-web](https://github.com/Kwame8919)>
+* **[Isaac Takiyara Kanyiti](https://twitter.com/isaac_takiy)** <[Isaac-web](https://github.com/Isaac-web)>
+
 
 
