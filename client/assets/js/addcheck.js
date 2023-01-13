@@ -43,6 +43,21 @@ function getuser() {
 
 };
 
+var userheaders = {};
+var userbody = {};
+
+function getheader() {
+    var key = $('#achkey').val();
+    var value = $('#achval').val();
+    userheaders[key] = value;
+  };
+
+  function getbody() {
+    var key = $('#acbkey').val();
+    var value = $('#acbval').val();
+    userbody[key] = value;
+  };
+
 function postcheck() {
     var userid = localStorage.id;
     var url = 'http://alxtakiy.tech/api/checks/'
@@ -50,11 +65,15 @@ function postcheck() {
     var acurl = $('#acurl').val();
     var method = $('#acmethod').val();
     var code = $('#accode').val();
+    var uheader = userheaders;
+    var ubody = userbody;
     var data = {
         title: title,
     url: acurl,
     method_id: method,
     status_code: code,
+    body: ubody,
+    header: uheader
     }
     var token = localStorage.token;
     axios({
@@ -72,3 +91,5 @@ function postcheck() {
   };
   window.addEventListener('load', getuser);
   document.getElementById('acbtn').addEventListener('click', postcheck);
+  document.getElementById('achbtn').addEventListener('click', getheader);
+  document.getElementById('acbbtn').addEventListener('click', getbody);
