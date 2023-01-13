@@ -18,7 +18,7 @@ class CheckModel(db.Model):
     title = db.Column(db.String(50), nullable=False)
     url = db.Column(db.String(1024), nullable=False)
     method_id = db.Column(db.Integer, db.ForeignKey("http_methods.id"), nullable=False)
-    data = db.Column(db.String)
+    data = db.Column(db.String(4096))
     status_code = db.Column(db.Integer, nullable=False)
     response_status_code = db.Column(db.Integer, nullable=True)
     response_time = db.Column(db.Integer, default=0, nullable=True)
