@@ -72,7 +72,7 @@ function postcheck() {
     var method = $('#methodsel').val();
     var code = $('#accode').val();
     var uheader = userheaders;
-    var ubody = userbody;
+    var ubody = JSON.stringify(userbody);
     var data = {
         title: title,
     url: acurl,
@@ -91,7 +91,8 @@ function postcheck() {
             'Content-Type': 'application/json'
           }
     })
-        .then (setTimeout(window.location.assign("homepage.html"), 10000))
+    .then(rep => console.log(rep))
+        // .then (setTimeout(window.location.assign("homepage.html"), 10000))
         .catch(err => console.error(err));
   };
   window.addEventListener('load', getuser);
