@@ -66,7 +66,7 @@ function getheader() {
 
 function postcheck() {
     var userid = localStorage.id;
-    var url = 'http://alxtakiy.tech/api/checks/'
+    var url = 'http://alxtakiy.tech/api/checks'
     var title = $('#actitle').val();
     var acurl = $('#acurl').val();
     var method = $('#methodsel').val();
@@ -85,13 +85,12 @@ function postcheck() {
     axios({
         method: 'post',
         url: url,
-        data: data,
+        data: JSON.stringify(data),
         headers: {
             Authorization: token,
             'Content-Type': 'application/json'
           }
     })
-        
         .then (setTimeout(window.location.assign("homepage.html"), 10000))
         .catch(err => console.error(err));
   };

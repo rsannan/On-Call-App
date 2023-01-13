@@ -73,7 +73,7 @@ function getchecks() {
         var data = res.data[i];
         const currentDate = new Date();
         const currentDayOfMonth = currentDate.getDate();
-        const currentMonth = currentDate.getMonth(); // Be careful! January is 0, not 1
+        const currentMonth = currentDate.getMonth();
         const currentYear = currentDate.getFullYear();
 
         const dateString = currentDayOfMonth + "-" + (currentMonth + 1) + "-" + currentYear;
