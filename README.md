@@ -2,7 +2,7 @@
 
 ## Introduction
 This project is a simple oncall management app that monitors api endpoints registered on it and notifies users anytime an endpoint goes down.
-<a href="http://www.alxtakiy.tech" target="blank">Try it here :)</a>
+<a href="http://www.alxtakiy.tech" target="window">Try it here :)</a>
 
 
 ## Installation
