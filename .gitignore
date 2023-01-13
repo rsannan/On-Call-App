@@ -2,3 +2,4 @@
 .appenv/lib64/
 .appenv/share
 ._appenv
+"sendgrid.env" 

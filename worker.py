@@ -84,7 +84,7 @@ class BackgroundWorkier:
             subject='On Call API Check',
             html_content='<strong>and easy to do anywhere, even with Python</strong>')
         try:
-            sg = SendGridAPIClient("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")
+            sg = SendGridAPIClient("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")
             # print(os.getenv("SEND_API_KEY"))
             response = sg.send(message)
             # print(response.status_code)

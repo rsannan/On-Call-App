@@ -4,7 +4,6 @@
 #activate virtual environment
 source .appenv/bin/activate
 
-
 #terminate all running background workders
 sudo pkill rq
 sudo pkill gunicorn
