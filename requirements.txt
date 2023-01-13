@@ -12,3 +12,4 @@ flask-cors
 gunicorn
 rq
 redis
+sendgrid

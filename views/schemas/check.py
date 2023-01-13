@@ -14,6 +14,7 @@ class CheckCreateSchema(Schema):
     title = fields.Str()
     url = fields.Str()
     method_id = fields.Int()
+    data = fields.Str()
     status_code = fields.Int()
     response_status_code = fields.Int(dump_only=True)
     created_at = fields.DateTime(),
@@ -29,6 +30,7 @@ class CheckReadSchema(Schema):
     title = fields.Str()
     url = fields.Str()
     method_id = fields.Int()
+    data = fields.Str()
     status_code = fields.Integer()
     response_time = fields.Int()
     created_at = fields.DateTime(dump_only=True),
@@ -45,6 +47,7 @@ class CheckUpdateSchema(Schema):
     title = fields.Str()
     url = fields.Str()
     method_id = fields.Int()
+    data = fields.Str()
     status_code = fields.Integer()
     response_time = fields.Int()
     status = fields.Bool()

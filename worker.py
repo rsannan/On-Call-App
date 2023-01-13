@@ -1,4 +1,6 @@
 import os
+import json
+from datetime import datetime
 from threading import Timer
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
@@ -7,7 +9,9 @@ from models.check import CheckModel
 import requests
 from requests.exceptions import InvalidURL, HTTPError, RequestException
 from dotenv import load_dotenv
-from datetime import datetime
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
 
 load_dotenv()
 
@@ -33,10 +37,16 @@ class BackgroundWorkier:
             headers = {}
             for index in range(len(check.headers)):
                 headers[check.headers[index].key] = check.headers[index].value
+            
+            try:
+                data = json.loads(check.data)
+            except Exception as err:
+                data = None
+            
                 
             try:
                 before = datetime.utcnow()
-                response = requests.get(check.url, headers=headers)
+                response = requests.get(check.url, headers=headers, data={})
                 after = datetime.utcnow()
                 time_taken = after - before 
                 
@@ -46,6 +56,10 @@ class BackgroundWorkier:
                 if status_code == check.status_code:
                     check.status = True
                 else:
+                    if check.status != False:
+                        print("Your check {} with http method {} just went down."
+                            .format(check.title, check.method.name))
+
                     check.status = False
 
                 check.response_status_code = status_code
@@ -54,7 +68,7 @@ class BackgroundWorkier:
                 self.session.add(check)
                 self.session.commit()
 
-                    #send message to user
+
             except InvalidURL:
                 print(f"{check.url} is not a valid url")
             except HTTPError:
@@ -63,6 +77,19 @@ class BackgroundWorkier:
                 print(f"Something went wrong while making an http request to {check.url}")
             
 
+    def send_mail(self):
+        message = Mail(
+            from_email='kanytechsolutions@gmail.com',
+            to_emails='kanytakiy@gmail.com',
+            subject='On Call API Check',
+            html_content='<strong>and easy to do anywhere, even with Python</strong>')
+        try:
+            sg = SendGridAPIClient("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")
+            # print(os.getenv("SEND_API_KEY"))
+            response = sg.send(message)
+            # print(response.status_code)
+        except Exception as e:
+            print(e)
 
     def start_periodic_check(self):
         self.perform_check()
@@ -75,7 +102,8 @@ class BackgroundWorkier:
 worker = BackgroundWorkier(os.getenv("DATABASE_URL"))
 
 if __name__ == "__main__":
-    worker.start_periodic_check()
+    # worker.start_periodic_check()
+    worker.send_mail()
 
 
 

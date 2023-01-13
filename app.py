@@ -45,7 +45,7 @@ def create_app(db_url=None):
     def app_root():
         return "** On Call App API **\n"
 
-    app.config["JWT_SECRET_KEY"] = "a very weak private key"
+    app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SCRETE_KEY")
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = False
     jwt = JWTManager(app)
 

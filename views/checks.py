@@ -34,12 +34,12 @@ class CheckList(MethodView):
         check.status_code = check_data["status_code"]
         check.user_id = user_id
         check.headers = [HTTPHeaderModel(**h) for h in check_data["headers"]]
+        check.data = check_data.get("data")
 
         try:
             db.session.add(check)
             db.session.commit()
-        except SQLAlchemyError as e:
-            print(e)
+        except SQLAlchemyError:
             abort(500, message="An error occured while creating a check")
 
         return check

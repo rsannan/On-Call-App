@@ -18,10 +18,10 @@ class CheckModel(db.Model):
     title = db.Column(db.String(50), nullable=False)
     url = db.Column(db.String(1024), nullable=False)
     method_id = db.Column(db.Integer, db.ForeignKey("http_methods.id"), nullable=False)
+    data = db.Column(db.String)
     status_code = db.Column(db.Integer, nullable=False)
     response_status_code = db.Column(db.Integer, nullable=True)
     response_time = db.Column(db.Integer, default=0, nullable=True)
-
     status = db.Column(db.Boolean, nullable=True, default=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
