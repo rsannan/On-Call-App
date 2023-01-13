@@ -33,7 +33,7 @@ class CheckList(MethodView):
         check.method_id = check_data["method_id"]
         check.status_code = check_data["status_code"]
         check.user_id = user_id
-        check.headers = [HTTPHeaderModel(**h) for h in check_data.get("headers")]
+        check.headers = [HTTPHeaderModel(**h) for h in check_data.get("headers")] or []
         check.data = check_data.get("data")
 
         try:
