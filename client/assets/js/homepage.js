@@ -100,10 +100,6 @@ function removecheck(check_id) {
         .catch(err => console.error(err));
   };
 
-  function getbtnid() {
-   
-  };
 
 $( document ).ready( getchecks );
 $( document ).ready( getuser );
-document.getElementByClassName('btn-delete').addEventListener('click',);

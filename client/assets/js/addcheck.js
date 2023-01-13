@@ -43,19 +43,25 @@ function getuser() {
 
 };
 
-var userheaders = {};
-var userbody = {};
+var userheaders = [];
+var userbody = [];
 
 function getheader() {
     var key = $('#achkey').val();
     var value = $('#achval').val();
-    userheaders[key] = value;
+    var addobj = {};
+    addobj[key] = value;
+    userheaders.push(addobj);
+    $('#headerdis').append(key + ':' + value + ', ');
   };
 
   function getbody() {
     var key = $('#acbkey').val();
     var value = $('#acbval').val();
-    userbody[key] = value;
+    var addobj = {};
+    addobj[key] = value;
+    userbody.push(addobj);
+    $('#bodydis').append(key + ':' + value + ', ');
   };
 
 function postcheck() {
@@ -75,7 +81,6 @@ function postcheck() {
     body: ubody,
     header: uheader
     }
-
     var token = localStorage.token;
     axios({
         method: 'post',
@@ -94,3 +99,5 @@ function postcheck() {
   document.getElementById('acbtn').addEventListener('click', postcheck);
   document.getElementById('achbtn').addEventListener('click', getheader);
   document.getElementById('acbbtn').addEventListener('click', getbody);
+  let note = document.getElementById('headerdis');
+note.textContent = userheaders;
