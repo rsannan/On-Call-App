@@ -18,10 +18,14 @@ To use our on call management app, follow the steps bellow;
 - If any or your checks is down, you will be notified by our servers via email.
 
 
-## Contribution
-
-* **[Asamoah Seth](https://twitter.com/kseth15)** <[Isaac-web](https://github.com/Kwame8919)>
+## Authors
+* **[Asamoah Seth](https://twitter.com/kseth15)** <[Kwame8919](https://github.com/Kwame8919)>
+* **[Reginald Shawn Annan](https://twitter.com/kseth15)** <[Reginald Shawn Annan](https://github.com/rsannan)>
 * **[Isaac Takiyara Kanyiti](https://twitter.com/isaac_takiy)** <[Isaac-web](https://github.com/Isaac-web)>
+
+
+# Licensing
+Currently this project is not licensed.
 
 
 
